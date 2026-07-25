@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://deadmoontattoo.scisenselab.com/sitemap.xml
