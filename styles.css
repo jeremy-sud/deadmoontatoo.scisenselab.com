@@ -23,6 +23,18 @@ body {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 button, input, textarea { font: inherit; }
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  background: var(--accent);
+  color: #111;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  z-index: 50;
+  font-weight: 700;
+}
+.skip-link:focus { top: 1rem; }
 .container { width: min(1160px, calc(100% - 2rem)); margin: 0 auto; }
 .topbar {
   position: sticky; top: 0; z-index: 20; padding: 1rem 0; backdrop-filter: blur(16px); background: rgba(5,5,5,0.78); border-bottom: 1px solid var(--border);
@@ -43,6 +55,21 @@ nav a { position: relative; padding: 0.2rem 0.1rem; }
 nav a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 100%; height: 2px; background: transparent; transition: 180ms ease; }
 nav a:hover::after { background: var(--accent-strong); }
 nav a:hover, .footer-links a:hover, .text-link:hover { color: var(--text); }
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 0.3rem;
+  background: transparent;
+  border: 0;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+.menu-toggle span {
+  width: 1.45rem;
+  height: 2px;
+  background: var(--text);
+  border-radius: 999px;
+}
 .lang-toggle {
   border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 0.45rem 0.8rem; border-radius: 999px; font-size: 0.82rem; cursor: pointer; transition: 180ms ease;
 }
@@ -111,7 +138,51 @@ p { margin: 0 0 0.85rem; color: var(--muted); }
   width: 100%; border: 1px solid var(--border); border-radius: 14px; padding: 0.8rem 0.9rem; color: var(--text); background: rgba(255,255,255,0.04);
 }
 .contact-form input:focus, .contact-form textarea:focus { outline: 2px solid rgba(212,163,115,0.35); border-color: var(--accent); }
+.consent {
+  display: flex;
+  align-items: start;
+  gap: 0.65rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.consent input { width: auto; margin-top: 0.2rem; }
+.honeypot { display: none !important; }
 .form-note { min-height: 1.2rem; color: var(--accent-strong); }
+.faq-list { display: grid; gap: 0.8rem; }
+.faq-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+}
+.faq-item summary {
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 600;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item p { margin-top: 0.7rem; margin-bottom: 0; color: var(--muted); }
+.back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(212,163,115,0.95);
+  color: #111;
+  font-size: 1.25rem;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: 180ms ease;
+}
+.back-to-top.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
 footer { padding: 1.2rem 0 2.4rem; border-top: 1px solid var(--border); margin-top: 1rem; }
 .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--muted); }
 .footer-links { display: flex; gap: 1rem; }
@@ -126,8 +197,18 @@ footer { padding: 1.2rem 0 2.4rem; border-top: 1px solid var(--border); margin-t
   .grid-3 { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
-  nav { display: none; }
+  .menu-toggle { display: inline-flex; }
   .topbar-inner { flex-wrap: wrap; }
+  .site-nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.9rem 0 0;
+    gap: 0.7rem;
+  }
+  .site-nav.is-open { display: flex; }
+  .lang-toggle { margin-left: auto; }
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .footer-row { flex-direction: column; align-items: flex-start; }
   .hero { padding-top: 3rem; }

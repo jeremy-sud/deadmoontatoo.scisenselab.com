@@ -5,18 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#050505" />
     <meta name="description" content="DeadMoon Tattoo Studio es un estudio profesional de tatuajes en Palmares, Costa Rica, especializado en diseños personalizados y arte de alta calidad." />
+    <meta name="author" content="DeadMoon Tattoo Studio" />
     <meta name="robots" content="index,follow" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta property="og:title" content="DeadMoon Tattoo Studio | Palmares, Costa Rica" />
+    <meta property="og:description" content="Estudio de tatuajes profesional con diseños personalizados, protocolos de bioseguridad y atención cercana en Costa Rica." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://deadmoontattoo.com" />
+    <meta property="og:image" content="https://deadmoontattoo.com/logo.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; upgrade-insecure-requests" />
     <title>DeadMoon Tattoo Studio | Palmares, Costa Rica</title>
+    <link rel="canonical" href="https://deadmoontattoo.com/" />
+    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#home">Saltar al contenido</a>
     <header class="topbar">
       <div class="container topbar-inner">
         <a href="#home" class="brand" aria-label="DeadMoon Tattoo Studio">
@@ -25,10 +36,16 @@
           </span>
           <span>DeadMoon Tattoo</span>
         </a>
-        <nav aria-label="Navegación principal">
+        <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
           <a href="#about" data-i18n="navAbout">Sobre nosotros</a>
           <a href="#services" data-i18n="navServices">Servicios</a>
           <a href="#blog" data-i18n="navBlog">Blog</a>
+          <a href="#faq" data-i18n="navFaq">FAQ</a>
           <a href="#policies" data-i18n="navPolicies">Políticas</a>
           <a href="#contact" data-i18n="navContact">Contacto</a>
         </nav>
@@ -175,6 +192,34 @@
         </div>
       </section>
 
+      <section id="faq" class="section">
+        <div class="container">
+          <div class="section-title">
+            <span class="eyebrow" data-i18n="faqEyebrow">Preguntas frecuentes</span>
+            <h2 data-i18n="faqTitle">Todo lo que necesitas saber antes de reservar.</h2>
+            <p data-i18n="faqText">Resolvemos las dudas más comunes sobre proceso, tiempos, diseño y cuidado para que tu experiencia sea clara desde el inicio.</p>
+          </div>
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary data-i18n="faqOneQuestion">¿Cómo funciona la primera consulta?</summary>
+              <p data-i18n="faqOneAnswer">Se conversa sobre estilo, ubicación, ideas y presupuesto para definir si el proyecto encaja con tu visión.</p>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faqTwoQuestion">¿Qué necesito llevar a la cita?</summary>
+              <p data-i18n="faqTwoAnswer">Solo necesitas venir hidratado, descansar bien y traer referencias visuales si tienes alguna idea concreta.</p>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faqThreeQuestion">¿Cuánto tardan los diseños personalizados?</summary>
+              <p data-i18n="faqThreeAnswer">El tiempo depende de la complejidad del proyecto, pero siempre buscamos entregar un boceto claro y bien pensado.</p>
+            </details>
+            <details class="faq-item">
+              <summary data-i18n="faqFourQuestion">¿Qué cuidados necesito después del tatuaje?</summary>
+              <p data-i18n="faqFourAnswer">Te entregamos indicaciones claras de limpieza, hidratación y evitar exposición solar durante los primeros días.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
       <section id="policies" class="section">
         <div class="container">
           <div class="section-title">
@@ -254,6 +299,11 @@
               <span data-i18n="formMessage">Mensaje</span>
               <textarea name="message" rows="5" required></textarea>
             </label>
+            <input class="honeypot" type="text" name="company" tabIndex="-1" autocomplete="off" />
+            <label class="consent">
+              <input type="checkbox" name="consent" required />
+              <span data-i18n="consentText">Acepto que DeadMoon use mi información para responder esta consulta.</span>
+            </label>
             <button class="btn btn-primary" type="submit" data-i18n="formSubmit">Enviar consulta</button>
             <p class="form-note" id="formStatus" aria-live="polite"></p>
           </form>
@@ -263,13 +313,15 @@
 
     <footer>
       <div class="container footer-row">
-        <p data-i18n="footerText">DeadMoon Tattoo Studio © 2026 · Palmares, Alajuela, Costa Rica.</p>
+        <p id="year" data-i18n="footerText">DeadMoon Tattoo Studio © 2026 · Palmares, Alajuela, Costa Rica.</p>
         <div class="footer-links">
           <a href="/policies.html" data-i18n="footerPolicy">Política de servicio</a>
           <a href="/privacy.html" data-i18n="footerPrivacy">Política de privacidad</a>
         </div>
       </div>
     </footer>
+
+    <a class="back-to-top" href="#home" aria-label="Volver arriba">↑</a>
 
     <script src="/app.js"></script>
   </body>

@@ -3,6 +3,7 @@ const translations = {
     navAbout: 'Sobre nosotros',
     navServices: 'Servicios',
     navBlog: 'Blog',
+    navFaq: 'FAQ',
     navPolicies: 'Políticas',
     navContact: 'Contacto',
     eyebrow: 'Estudio de tatuajes en Costa Rica',
@@ -43,6 +44,17 @@ const translations = {
     valuesEyebrow: 'Valores',
     valuesTitle: 'Profesionalismo, respeto y claridad',
     valuesText: 'Cada proyecto se maneja con honestidad, responsabilidad y foco en ofrecer una experiencia confiable desde la primera conversación.',
+    faqEyebrow: 'Preguntas frecuentes',
+    faqTitle: 'Todo lo que necesitas saber antes de reservar.',
+    faqText: 'Resolvemos las dudas más comunes sobre proceso, tiempos, diseño y cuidado para que tu experiencia sea clara desde el inicio.',
+    faqOneQuestion: '¿Cómo funciona la primera consulta?',
+    faqOneAnswer: 'Se conversa sobre estilo, ubicación, ideas y presupuesto para definir si el proyecto encaja con tu visión.',
+    faqTwoQuestion: '¿Qué necesito llevar a la cita?',
+    faqTwoAnswer: 'Solo necesitas venir hidratado, descansar bien y traer referencias visuales si tienes alguna idea concreta.',
+    faqThreeQuestion: '¿Cuánto tardan los diseños personalizados?',
+    faqThreeAnswer: 'El tiempo depende de la complejidad del proyecto, pero siempre buscamos entregar un boceto claro y bien pensado.',
+    faqFourQuestion: '¿Qué cuidados necesito después del tatuaje?',
+    faqFourAnswer: 'Te entregamos indicaciones claras de limpieza, hidratación y evitar exposición solar durante los primeros días.',
     policiesEyebrow: 'Políticas y privacidad',
     policiesTitle: 'Información transparente para tus citas y reservas.',
     policyServiceTitle: 'Política de servicio',
@@ -84,6 +96,7 @@ const translations = {
     formEmail: 'Correo',
     formMessage: 'Mensaje',
     formSubmit: 'Enviar consulta',
+    consentText: 'Acepto que DeadMoon use mi información para responder esta consulta.',
     footerText: 'DeadMoon Tattoo Studio © 2026 · Palmares, Alajuela, Costa Rica.',
     footerPolicy: 'Política de servicio',
     footerPrivacy: 'Política de privacidad'
@@ -92,6 +105,7 @@ const translations = {
     navAbout: 'About us',
     navServices: 'Services',
     navBlog: 'Blog',
+    navFaq: 'FAQ',
     navPolicies: 'Policies',
     navContact: 'Contact',
     eyebrow: 'Tattoo studio in Costa Rica',
@@ -132,10 +146,21 @@ const translations = {
     valuesEyebrow: 'Values',
     valuesTitle: 'Professionalism, respect and clarity',
     valuesText: 'Each project is handled with honesty, responsibility and focus on offering a reliable experience from the first conversation.',
+    faqEyebrow: 'Frequently asked questions',
+    faqTitle: 'Everything you need to know before booking.',
+    faqText: 'We answer the most common questions about process, timing, design and care so your experience is clear from the start.',
+    faqOneQuestion: 'How does the first consultation work?',
+    faqOneAnswer: 'We talk about style, placement, ideas and budget to see if the project fits your vision.',
+    faqTwoQuestion: 'What should I bring to the appointment?',
+    faqTwoAnswer: 'Just come hydrated, well rested and bring visual references if you have a clear idea in mind.',
+    faqThreeQuestion: 'How long do custom designs take?',
+    faqThreeAnswer: 'The timeline depends on the complexity of the project, but we always aim for a clear and thoughtful sketch.',
+    faqFourQuestion: 'What aftercare do I need?',
+    faqFourAnswer: 'We provide clear instructions for cleaning, moisturizing and avoiding sun exposure during the first days.',
     policiesEyebrow: 'Policies and privacy',
     policiesTitle: 'Transparent information for your appointments and reservations.',
     policyServiceTitle: 'Service policy',
-    policyServiceText: 'Read our conditions for reservations, deposits, rescheduling, health requirements and admission policies.',
+    policyServiceText: 'Read our terms for bookings, deposits, rescheduling, health requirements and admission policies.',
     policyServiceLink: 'View full policy',
     policyPrivacyTitle: 'Privacy policy',
     policyPrivacyText: 'Learn how we handle your data, what information we collect and what rights you have over it.',
@@ -173,6 +198,7 @@ const translations = {
     formEmail: 'Email',
     formMessage: 'Message',
     formSubmit: 'Send consultation',
+    consentText: 'I agree that DeadMoon may use my information to reply to this inquiry.',
     footerText: 'DeadMoon Tattoo Studio © 2026 · Palmares, Alajuela, Costa Rica.',
     footerPolicy: 'Service policy',
     footerPrivacy: 'Privacy policy'
@@ -182,6 +208,10 @@ const translations = {
 const langToggle = document.getElementById('langToggle');
 const elements = document.querySelectorAll('[data-i18n]');
 let currentLang = 'es';
+const menuToggle = document.getElementById('menuToggle');
+const siteNav = document.getElementById('site-nav');
+const backToTop = document.querySelector('.back-to-top');
+const yearEl = document.getElementById('year');
 
 function applyLanguage(lang) {
   currentLang = lang;
@@ -193,33 +223,90 @@ function applyLanguage(lang) {
     }
   });
   document.documentElement.lang = lang;
-  langToggle.textContent = lang === 'es' ? 'ES / EN' : 'EN / ES';
+  if (langToggle) {
+    langToggle.textContent = lang === 'es' ? 'ES / EN' : 'EN / ES';
+  }
 }
 
-langToggle.addEventListener('click', () => {
-  applyLanguage(currentLang === 'es' ? 'en' : 'es');
-});
+if (langToggle) {
+  langToggle.addEventListener('click', () => {
+    applyLanguage(currentLang === 'es' ? 'en' : 'es');
+  });
+}
+
+if (menuToggle && siteNav) {
+  menuToggle.addEventListener('click', () => {
+    const isOpen = siteNav.classList.toggle('is-open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  siteNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      siteNav.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+if (backToTop) {
+  const toggleBackToTop = () => {
+    backToTop.classList.toggle('is-visible', window.scrollY > 480);
+  };
+
+  window.addEventListener('scroll', toggleBackToTop, { passive: true });
+  toggleBackToTop();
+}
+
+if (yearEl) {
+  yearEl.textContent = `DeadMoon Tattoo Studio © ${new Date().getFullYear()} · Palmares, Alajuela, Costa Rica.`;
+}
 
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const data = new FormData(form);
-  const name = data.get('name')?.toString().trim() || '';
-  const email = data.get('email')?.toString().trim() || '';
-  const message = data.get('message')?.toString().trim() || '';
+if (form && status) {
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const name = data.get('name')?.toString().trim() || '';
+    const email = data.get('email')?.toString().trim() || '';
+    const message = data.get('message')?.toString().trim() || '';
+    const honeypot = data.get('company')?.toString().trim() || '';
+    const consent = form.querySelector('input[name="consent"]');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!name || !email || !message) {
-    status.textContent = currentLang === 'es' ? 'Por favor completa todos los campos.' : 'Please complete all fields.';
-    return;
-  }
+    if (honeypot) {
+      status.textContent = currentLang === 'es' ? 'Tu mensaje fue marcado como posible spam.' : 'Your message was flagged as possible spam.';
+      form.reset();
+      return;
+    }
 
-  const subject = encodeURIComponent(currentLang === 'es' ? 'Consulta desde la web DeadMoon' : 'Message from DeadMoon website');
-  const body = encodeURIComponent(`Nombre: ${name}\nCorreo: ${email}\n\nMensaje:\n${message}`);
-  window.location.href = `mailto:deadmooncr@gmail.com?subject=${subject}&body=${body}`;
-  status.textContent = currentLang === 'es' ? 'Se abrirá tu cliente de correo para enviar la consulta.' : 'Your email app will open to send the message.';
-  form.reset();
-});
+    if (!name || !email || !message) {
+      status.textContent = currentLang === 'es' ? 'Por favor completa todos los campos.' : 'Please complete all fields.';
+      return;
+    }
+
+    if (!emailPattern.test(email)) {
+      status.textContent = currentLang === 'es' ? 'Ingresa un correo válido.' : 'Please enter a valid email address.';
+      return;
+    }
+
+    if (message.length < 10) {
+      status.textContent = currentLang === 'es' ? 'Escribe un mensaje más detallado.' : 'Please write a more detailed message.';
+      return;
+    }
+
+    if (!consent?.checked) {
+      status.textContent = currentLang === 'es' ? 'Debes aceptar el uso de tus datos para responder.' : 'You must accept the use of your data to reply.';
+      return;
+    }
+
+    const subject = encodeURIComponent(currentLang === 'es' ? 'Consulta desde la web DeadMoon' : 'Message from DeadMoon website');
+    const body = encodeURIComponent(`Nombre: ${name}\nCorreo: ${email}\n\nMensaje:\n${message}`);
+    window.location.href = `mailto:deadmooncr@gmail.com?subject=${subject}&body=${body}`;
+    status.textContent = currentLang === 'es' ? 'Se abrirá tu cliente de correo para enviar la consulta.' : 'Your email app will open to send the message.';
+    form.reset();
+  });
+}
 
 applyLanguage('es');
